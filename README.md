@@ -1,3 +1,32 @@
+## 폴더 구조
+
+```
+src
+├── step1-index.js          # 프로그램 실행 시작점
+├── app                     # 애플리케이션 실행 및 컨트롤러
+│   ├── startLottoGame.js     # 게임 실행 (컨트롤러 역할)
+│   ├── lottoService.js       # 로또 구매 및 당첨 검증
+├── domain                  # 핵심 도메인 로직
+│   ├── Lotto.js              # 로또 한 장 (클래스)
+│   ├── LottoBundle.js        # 여러 장의 로또 묶음 (클래스)
+│   ├── WinningLotto.js       # 당첨 번호 (클래스)
+├── validation              # 공통 유효성 검사 모듈
+│   ├── validationRules.js    # 유효성 검사 규칙
+├── utils                   # 유틸 함수
+│   ├── commaizeNumber.js     # 숫자 포맷팅
+│   ├── pickUniqueNumbers     # 랜덤 숫자 생성
+├── view                    # UI 입출력
+│   ├── input.js              # 사용자 입력 처리
+│   ├── output.js             # 결과 출력 처리
+│   ├── useValidation.js      # 선언적 검증 훅
+│   ├── readLineAsync.js      # 비동기 입력 처리
+│   ├── retryUntilValid.js    # 유효한 입력까지 반복
+├── constants               # 상수 관리
+│   ├── error.js              # 에러 메시지
+│   ├── rules.js              # 가격 및 번호 범위 등의 규칙
+│   ├── prize.js              # 당첨금
+```
+
 ## 기능 요구 사항
 
 1. [입력] 구입 금액을 입력받는다.
