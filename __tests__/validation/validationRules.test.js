@@ -1,13 +1,13 @@
 import { ERROR_MESSAGE } from "../../src/constants/error.js";
 import {
-  isNumber,
-  isLottoPriceUnit,
-  isValidPriceRange,
-  isValidLottoLength,
-  isValidLottoRange,
-  isUniqueLottoNumbers,
-  isUniqueBonusNumber,
-  isValidRestartInput,
+  validateNumber,
+  validateLottoPriceUnit,
+  validatePriceRange,
+  validateLottoLength,
+  validateLottoRange,
+  validateUniqueLottoNumbers,
+  validateUniqueBonusNumber,
+  validateRestartInput,
 } from "../../src/validation/validationRules.js";
 
 describe("validation/validationRules", () => {
@@ -19,12 +19,14 @@ describe("validation/validationRules", () => {
     ["", true],
     [" ", true],
   ])(
-    "isNumber(%s): 숫자 형식이 아닌 경우 예외를 발생시킨다.",
+    "validateNumber(%s): 숫자 형식이 아닌 경우 예외를 발생시킨다.",
     (input, throwsError) => {
       if (throwsError) {
-        expect(() => isNumber(input)).toThrow(ERROR_MESSAGE.INVALID_NUMBER);
+        expect(() => validateNumber(input)).toThrow(
+          ERROR_MESSAGE.INVALID_NUMBER,
+        );
       } else {
-        expect(() => isNumber(input)).not.toThrow();
+        expect(() => validateNumber(input)).not.toThrow();
       }
     },
   );
@@ -38,14 +40,14 @@ describe("validation/validationRules", () => {
     [1500, true],
     [1001, true],
   ])(
-    "isLottoPriceUnit(%i): 로또 한 장 가격 단위가 아닌 경우 예외를 발생시킨다.",
+    "validateLottoPriceUnit(%i): 로또 한 장 가격 단위가 아닌 경우 예외를 발생시킨다.",
     (input, throwsError) => {
       if (throwsError) {
-        expect(() => isLottoPriceUnit(input)).toThrow(
+        expect(() => validateLottoPriceUnit(input)).toThrow(
           ERROR_MESSAGE.INVALID_LOTTO_PRICE_UNIT,
         );
       } else {
-        expect(() => isLottoPriceUnit(input)).not.toThrow();
+        expect(() => validateLottoPriceUnit(input)).not.toThrow();
       }
     },
   );
@@ -58,14 +60,14 @@ describe("validation/validationRules", () => {
     [100001, true],
     [-500, true],
   ])(
-    "isValidPriceRange(%i): 구매 금액이 범위를 벗어나면 예외를 발생시킨다.",
+    "validatePriceRange(%i): 구매 금액이 범위를 벗어나면 예외를 발생시킨다.",
     (input, throwsError) => {
       if (throwsError) {
-        expect(() => isValidPriceRange(input)).toThrow(
+        expect(() => validatePriceRange(input)).toThrow(
           ERROR_MESSAGE.INVALID_PRICE_RANGE,
         );
       } else {
-        expect(() => isValidPriceRange(input)).not.toThrow();
+        expect(() => validatePriceRange(input)).not.toThrow();
       }
     },
   );
@@ -75,14 +77,14 @@ describe("validation/validationRules", () => {
     [[1, 2, 3, 4, 5], true],
     [[1, 2, 3, 4, 5, 6, 7], true],
   ])(
-    "isValidLottoLength(%p): 로또 번호 개수가 6개가 아니면 예외를 발생시킨다.",
+    "validateLottoLength(%p): 로또 번호 개수가 6개가 아니면 예외를 발생시킨다.",
     (numbers, throwsError) => {
       if (throwsError) {
-        expect(() => isValidLottoLength(numbers)).toThrow(
+        expect(() => validateLottoLength(numbers)).toThrow(
           ERROR_MESSAGE.INVALID_LOTTO_NUMBER_LENGTH,
         );
       } else {
-        expect(() => isValidLottoLength(numbers)).not.toThrow();
+        expect(() => validateLottoLength(numbers)).not.toThrow();
       }
     },
   );
@@ -92,14 +94,14 @@ describe("validation/validationRules", () => {
     [[1, 2, 3, 4, 5, 46], true],
     [[0, 2, 3, 4, 5, 6], true],
   ])(
-    "isValidLottoRange(%p): 로또 번호가 1~45 범위를 벗어나면 예외를 발생시킨다.",
+    "validateLottoRange(%p): 로또 번호가 1~45 범위를 벗어나면 예외를 발생시킨다.",
     (numbers, throwsError) => {
       if (throwsError) {
-        expect(() => isValidLottoRange(numbers)).toThrow(
+        expect(() => validateLottoRange(numbers)).toThrow(
           ERROR_MESSAGE.INVALID_LOTTO_NUMBER_RANGE,
         );
       } else {
-        expect(() => isValidLottoRange(numbers)).not.toThrow();
+        expect(() => validateLottoRange(numbers)).not.toThrow();
       }
     },
   );
@@ -109,14 +111,14 @@ describe("validation/validationRules", () => {
     [[1, 1, 2, 3, 4, 5], true],
     [[7, 7, 7, 7, 7, 7], true],
   ])(
-    "isUniqueLottoNumbers(%p): 로또 번호에 중복이 있으면 예외를 발생시킨다.",
+    "validateUniqueLottoNumbers(%p): 로또 번호에 중복이 있으면 예외를 발생시킨다.",
     (numbers, throwsError) => {
       if (throwsError) {
-        expect(() => isUniqueLottoNumbers(numbers)).toThrow(
+        expect(() => validateUniqueLottoNumbers(numbers)).toThrow(
           ERROR_MESSAGE.INVALID_LOTTO_DUPLICATE_NUMBER,
         );
       } else {
-        expect(() => isUniqueLottoNumbers(numbers)).not.toThrow();
+        expect(() => validateUniqueLottoNumbers(numbers)).not.toThrow();
       }
     },
   );
@@ -125,15 +127,15 @@ describe("validation/validationRules", () => {
     [7, [1, 2, 3, 4, 5, 6], false],
     [3, [1, 2, 3, 4, 5, 6], true],
   ])(
-    "isUniqueBonusNumber(%i, %p): 보너스 번호가 당첨 번호와 중복되면 예외를 발생시킨다.",
+    "validateUniqueBonusNumber(%i, %p): 보너스 번호가 당첨 번호와 중복되면 예외를 발생시킨다.",
     (bonusNumber, winningNumbers, throwsError) => {
       if (throwsError) {
-        expect(() => isUniqueBonusNumber(bonusNumber, winningNumbers)).toThrow(
-          ERROR_MESSAGE.INVALID_BONUS_NUMBER,
-        );
+        expect(() =>
+          validateUniqueBonusNumber(bonusNumber, winningNumbers),
+        ).toThrow(ERROR_MESSAGE.INVALID_BONUS_NUMBER);
       } else {
         expect(() =>
-          isUniqueBonusNumber(bonusNumber, winningNumbers),
+          validateUniqueBonusNumber(bonusNumber, winningNumbers),
         ).not.toThrow();
       }
     },
@@ -149,14 +151,14 @@ describe("validation/validationRules", () => {
     ["123", true],
     [" ", true],
   ])(
-    "isValidRestartInput(%s): 'y' 또는 'n'이 아닌 경우 예외를 발생시킨다.",
+    "validateRestartInput(%s): 'y' 또는 'n'이 아닌 경우 예외를 발생시킨다.",
     (input, throwsError) => {
       if (throwsError) {
-        expect(() => isValidRestartInput(input)).toThrow(
+        expect(() => validateRestartInput(input)).toThrow(
           ERROR_MESSAGE.INVALID_RESTART_FORMAT,
         );
       } else {
-        expect(() => isValidRestartInput(input)).not.toThrow();
+        expect(() => validateRestartInput(input)).not.toThrow();
       }
     },
   );

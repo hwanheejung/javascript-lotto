@@ -69,7 +69,7 @@ describe("domain/Lotto", () => {
     "로또 번호 %p가 보너스 번호 %i를 포함하는지 확인",
     (lottoNumbers, bonusNumber, expected) => {
       const lotto = new Lotto(lottoNumbers);
-      expect(lotto.hasBonus(bonusNumber)).toBe(expected);
+      expect(lotto.has(bonusNumber)).toBe(expected);
     },
   );
 });
