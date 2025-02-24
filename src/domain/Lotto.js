@@ -1,7 +1,7 @@
 import {
-  isUniqueLottoNumbers,
-  isValidLottoLength,
-  isValidLottoRange,
+  validateUniqueLottoNumbers,
+  validateLottoLength,
+  validateLottoRange,
 } from "../validation/validationRules.js";
 
 class Lotto {
@@ -13,21 +13,21 @@ class Lotto {
   }
 
   #validate(numbers) {
-    isValidLottoLength(numbers);
-    isValidLottoRange(numbers);
-    isUniqueLottoNumbers(numbers);
+    validateLottoLength(numbers);
+    validateLottoRange(numbers);
+    validateUniqueLottoNumbers(numbers);
   }
 
   getNumbers() {
     return [...this.#numbers];
   }
 
-  matchCount(winningNumbers) {
-    return this.#numbers.filter((num) => winningNumbers.includes(num)).length;
+  matchCount(numbers) {
+    return this.#numbers.filter((num) => numbers.includes(num)).length;
   }
 
-  hasBonus(bonusNumber) {
-    return this.#numbers.includes(bonusNumber);
+  has(number) {
+    return this.#numbers.includes(number);
   }
 }
 

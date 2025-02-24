@@ -1,48 +1,48 @@
 import {
-  isNumber,
-  isLottoPriceUnit,
-  isValidPriceRange,
-  isValidLottoLength,
-  isValidLottoRange,
-  isUniqueLottoNumbers,
-  isUniqueBonusNumber,
-  isValidRestartInput,
+  validateNumber,
+  validateLottoPriceUnit,
+  validatePriceRange,
+  validateLottoLength,
+  validateLottoRange,
+  validateUniqueLottoNumbers,
+  validateUniqueBonusNumber,
+  validateRestartInput,
 } from "../validation/validationRules.js";
 
 const useValidation = () => {
   return {
     validatePrice: (input) =>
-      useValidationExecutor(Number(input), [
-        isNumber,
-        isLottoPriceUnit,
-        isValidPriceRange,
+      executeValidations(Number(input), [
+        validateNumber,
+        validateLottoPriceUnit,
+        validatePriceRange,
       ]),
 
     validateWinningNumbers: (input) => {
       const numbers = input.split(",").map(Number);
-      return useValidationExecutor(numbers, [
-        isValidLottoLength,
-        isValidLottoRange,
-        isUniqueLottoNumbers,
+      return executeValidations(numbers, [
+        validateLottoLength,
+        validateLottoRange,
+        validateUniqueLottoNumbers,
       ]);
     },
 
     validateBonusNumber: (bonusNumber, winningNumbers) => {
       const number = Number(bonusNumber);
-      return useValidationExecutor(number, [
-        (num) => isValidLottoRange([num]),
-        (num) => isUniqueBonusNumber(num, winningNumbers),
+      return executeValidations(number, [
+        (num) => validateLottoRange([num]),
+        (num) => validateUniqueBonusNumber(num, winningNumbers),
       ]);
     },
 
     validateRestart: (input) => {
       const lowered = input.trim().toLowerCase();
-      return useValidationExecutor(lowered, [isValidRestartInput]) === "y";
+      return executeValidations(lowered, [validateRestartInput]) === "y";
     },
   };
 };
 
-const useValidationExecutor = (input, rules) => {
+const executeValidations = (input, rules) => {
   for (const rule of rules) {
     rule(input);
   }

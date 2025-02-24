@@ -1,5 +1,5 @@
 import { PRIZE } from "../constants/prize.js";
-import { isUniqueBonusNumber } from "../validation/validationRules.js";
+import { validateUniqueBonusNumber } from "../validation/validationRules.js";
 import Lotto from "./Lotto.js";
 
 class WinningLotto {
@@ -8,13 +8,13 @@ class WinningLotto {
 
   constructor(winningNumbers, bonusNumber) {
     this.#winningLotto = new Lotto(winningNumbers);
-    isUniqueBonusNumber(bonusNumber, winningNumbers);
+    validateUniqueBonusNumber(bonusNumber, winningNumbers);
     this.#bonusNumber = bonusNumber;
   }
 
   evaluate(lotto) {
     const matchCount = lotto.matchCount(this.#winningLotto.getNumbers());
-    const isBonusMatched = lotto.hasBonus(this.#bonusNumber);
+    const isBonusMatched = lotto.has(this.#bonusNumber);
     return this.#getRank(matchCount, isBonusMatched);
   }
 
