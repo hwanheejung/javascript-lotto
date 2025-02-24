@@ -5,6 +5,8 @@
   --color-greyscale-3: rgba(180, 180, 180, 1);
   --color-greyscale-4: rgba(139, 139, 139, 1);
   --color-greyscale-5: rgba(0, 0, 0, 1);
+
+  --color-primary-opacity-20: rgba(78, 91, 166, 0.2);
 }
 
 .text-title {

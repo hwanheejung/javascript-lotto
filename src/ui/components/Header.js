@@ -1,13 +1,11 @@
 import Component from "./Component";
 
-class Header extends Component {
-  setup() {
-    this.state = { title: "🎱 행운의 로또" };
-  }
+const TITLE = "🎱 행운의 로또";
 
+class Header extends Component {
   template() {
     return `
-        <h1>${this.state.title}</h1>
+        <h1>${TITLE}</h1>
     `;
   }
 }
