@@ -1,6 +1,7 @@
 import Component from "./Component.js";
 import LottoForm from "./LottoForm.js";
 import LottoList from "./LottoList.js";
+import WinningNumbersForm from "./WinningNumbersForm.js";
 
 class LottoGame extends Component {
   setup() {
@@ -16,10 +17,10 @@ class LottoGame extends Component {
 
   template() {
     return `
-      <section id="lotto-game">
+      <section id="lotto-game" class="text-body">
         <h2 class="text-title">🎱 내 번호 당첨 확인 🎱</h2>
-        <div id="lotto-form" class="text-body"></div>
-        <div id="lotto-list" class="text-body"></div>
+        <div id="lotto-form"></div>
+        <div id="lotto-list"></div>
         <div id="winning-numbers-form"></div>
       </section>
     `;
@@ -34,7 +35,7 @@ class LottoGame extends Component {
       new LottoList(document.querySelector("#lotto-list"), {
         lottoBundle: this.state.lottoBundle,
       });
-      //   new WinningNumbersForm(document.querySelector("#winning-numbers-form"));
+      new WinningNumbersForm(document.querySelector("#winning-numbers-form"));
     }
   }
 }

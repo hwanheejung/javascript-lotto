@@ -3,7 +3,7 @@ import Component from "./Component.js";
 class LottoList extends Component {
   template() {
     return `
-      <h2>총 ${this.props.lottoBundle.size()}개를 구매했습니다.</h2>
+      <p>총 ${this.props.lottoBundle.size()}개를 구매했습니다.</p>
       <ul>
         ${this.props.lottoBundle
           .getLottos()
