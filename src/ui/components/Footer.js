@@ -1,4 +1,4 @@
-import Component from "./Component";
+import Component from "./Component.js";
 
 const Copyright = {
   YEAR: new Date().getFullYear(),
@@ -8,7 +8,7 @@ const Copyright = {
 class Footer extends Component {
   template() {
     return `
-        <p>Copyright ${Copyright.YEAR}. ${Copyright.OWNER}</p>
+      <p>Copyright ${Copyright.YEAR}. ${Copyright.OWNER}</p>
     `;
   }
 }

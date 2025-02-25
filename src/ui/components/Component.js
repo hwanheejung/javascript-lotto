@@ -3,6 +3,7 @@ class Component {
     this.$target = $target;
     this.props = props;
     this.state = {};
+    this.events = {};
 
     this.setup();
     this.render();

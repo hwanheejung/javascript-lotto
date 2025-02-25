@@ -1,9 +1,10 @@
-import Component from "./components/Component.js";
-import Header from "./components/Header.js";
-import "./styles/reset.css";
 import "./styles/global.css";
 import "./styles/index.css";
+import "./styles/reset.css";
+import Component from "./components/Component.js";
 import Footer from "./components/Footer.js";
+import Header from "./components/Header.js";
+import LottoGame from "./components/LottoGame.js";
 
 class App extends Component {
   template() {
@@ -16,6 +17,7 @@ class App extends Component {
 
   mounted() {
     new Header(document.querySelector("#header"));
+    new LottoGame(document.querySelector("#main"));
     new Footer(document.querySelector("#footer"));
   }
 }
