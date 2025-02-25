@@ -7,9 +7,9 @@ import {
   validateUniqueLottoNumbers,
   validateUniqueBonusNumber,
   validateRestartInput,
-} from "../validation/validationRules.js";
+} from "./validationRules.js";
 
-const useValidation = () => {
+const useValidation = (executeValidations) => () => {
   return {
     validatePrice: (input) =>
       executeValidations(Number(input), [
@@ -40,13 +40,6 @@ const useValidation = () => {
       return executeValidations(lowered, [validateRestartInput]) === "y";
     },
   };
-};
-
-const executeValidations = (input, rules) => {
-  for (const rule of rules) {
-    rule(input);
-  }
-  return input;
 };
 
 export default useValidation;

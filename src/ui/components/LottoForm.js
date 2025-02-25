@@ -1,5 +1,10 @@
 import lottoService from "../../app/lottoService.js";
+import useUIValidation from "../useUIValidation.js";
 import Component from "./Component.js";
+
+const LABEL = "구입할 금액을 입력해주세요.";
+const PLACEHOLDER = "금액";
+const BUTTON = "구입";
 
 class LottoForm extends Component {
   setup() {
@@ -10,9 +15,10 @@ class LottoForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const price = Number(event.target.price.value);
 
-    // TODO: validation
+    const { validatePrice } = useUIValidation();
+    const price = validatePrice(event.target.price.value);
+    if (!price) return;
 
     const lottoBundle = lottoService.generateLottoBundle(price);
     this.props.onPurchase(price, lottoBundle);
@@ -21,15 +27,15 @@ class LottoForm extends Component {
   template() {
     return `
       <form class="lotto-form" method="post">
-        <label for="price">구입할 금액을 입력해주세요.</label>
+        <label for="price">${LABEL}</label>
         <div>
           <input 
             type="number" 
             id="price" 
             name="price"
-            placeholder="금액" 
+            placeholder="${PLACEHOLDER}" 
           />
-          <button type="submit">구입</button>
+          <button type="submit">${BUTTON}</button>
         </div>
       </form>
     `;
