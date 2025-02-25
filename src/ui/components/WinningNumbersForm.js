@@ -3,37 +3,25 @@ import Component from "./Component.js";
 
 class WinningNumbersForm extends Component {
   setup() {
-    this.state = {
-      winningNumbers: Array(Lotto.SIZE).fill(""),
-      bonusNumber: "",
-    };
     this.events = {
       "click@.open-result-button": this.openResult,
-      "input@.winning-numbers__input": this.handleInput,
     };
   }
 
   openResult() {
-    const { setWinningNumbers, setBonusNumber } = this.props;
-    const { winningNumbers, bonusNumber } = this.state;
+    const { setWinningNumbers, setBonusNumber, onModalOpen } = this.props;
+    const winningNumbers = Array.from(
+      this.$target.querySelectorAll(".winning-numbers__input[data-index]"),
+      (input) => Number(input.value),
+    );
 
-    setWinningNumbers(winningNumbers.map(Number));
-    setBonusNumber(Number(bonusNumber));
+    const bonusNumber = Number(
+      this.$target.querySelector(".winning-numbers__bonus input").value,
+    );
 
-    this.props.onModalOpen();
-  }
-
-  handleInput(event) {
-    const { value, dataset } = event.target;
-    const index = dataset.index ? Number(dataset.index) : null;
-
-    if (index !== null) {
-      const updatedWinningNumbers = [...this.state.winningNumbers];
-      updatedWinningNumbers[index] = value;
-      this.setState({ winningNumbers: updatedWinningNumbers });
-    } else {
-      this.setState({ bonusNumber: value });
-    }
+    setWinningNumbers(winningNumbers);
+    setBonusNumber(bonusNumber);
+    onModalOpen();
   }
 
   template() {
@@ -50,7 +38,6 @@ class WinningNumbersForm extends Component {
                         class="winning-numbers__input" 
                         min="${LottoNumber.MIN}" 
                         max="${LottoNumber.MAX}" 
-                        value="${this.state.winningNumbers[index] || ""}"
                         data-index="${index}"
                     />
                     `;
@@ -66,7 +53,6 @@ class WinningNumbersForm extends Component {
                         class="winning-numbers__input" 
                         min="${LottoNumber.MIN}" 
                         max="${LottoNumber.MAX}" 
-                        value="${this.state.bonusNumber || ""}"
                     />
                 </div>
             </div>
