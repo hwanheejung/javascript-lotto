@@ -1,6 +1,7 @@
 import Component from "./Component.js";
 import LottoForm from "./LottoForm.js";
 import LottoList from "./LottoList.js";
+import ResultModal from "./ResultModal.js";
 import WinningNumbersForm from "./WinningNumbersForm.js";
 
 class LottoGame extends Component {
@@ -8,11 +9,20 @@ class LottoGame extends Component {
     this.state = {
       isPurchased: false,
       lottoBundle: [],
+      isModalOpen: false,
     };
   }
 
   handlePurchase(lottoBundle) {
     this.setState({ isPurchased: true, lottoBundle });
+  }
+
+  handleModalOpen() {
+    this.setState({ isModalOpen: true });
+  }
+
+  handleModalClose() {
+    this.setState({ isModalOpen: false });
   }
 
   template() {
@@ -23,6 +33,7 @@ class LottoGame extends Component {
         <div id="lotto-list"></div>
         <div id="winning-numbers-form"></div>
       </section>
+      <div id="modal-root"></div>
     `;
   }
 
@@ -35,8 +46,14 @@ class LottoGame extends Component {
       new LottoList(document.querySelector("#lotto-list"), {
         lottoBundle: this.state.lottoBundle,
       });
-      new WinningNumbersForm(document.querySelector("#winning-numbers-form"));
+      new WinningNumbersForm(document.querySelector("#winning-numbers-form"), {
+        onModalOpen: () => this.handleModalOpen(),
+      });
     }
+    new ResultModal(document.querySelector("#modal-root"), {
+      isOpen: this.state.isModalOpen,
+      onClose: () => this.handleModalClose(),
+    });
   }
 }
 

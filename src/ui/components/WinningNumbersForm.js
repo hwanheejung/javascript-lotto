@@ -14,17 +14,16 @@ class WinningNumbersForm extends Component {
   }
 
   openResult() {
-    console.log("당첨 번호:", this.state.winningNumbers);
-    console.log("보너스 번호:", this.state.bonusNumber);
+    this.props.onModalOpen();
   }
 
   handleInput(event) {
     const { value, dataset } = event.target;
-    const isBonus = dataset.index;
+    const index = dataset.index ? Number(dataset.index) : null;
 
-    if (!isBonus) {
+    if (index !== null) {
       const updatedWinningNumbers = [...this.state.winningNumbers];
-      updatedWinningNumbers[Number(dataset.index)] = value;
+      updatedWinningNumbers[index] = value;
       this.setState({ winningNumbers: updatedWinningNumbers });
     } else {
       this.setState({ bonusNumber: value });
