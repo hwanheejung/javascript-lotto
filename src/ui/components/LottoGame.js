@@ -41,32 +41,33 @@ class LottoGame extends Component {
     `;
   }
 
-  mounted() {
+  renderChildren() {
     new LottoForm(document.querySelector("#lotto-form"), {
       onPurchase: (price, lottoBundle) =>
         this.handlePurchase(price, lottoBundle),
     });
 
-    if (this.state.isPurchased) {
-      new LottoList(document.querySelector("#lotto-list"), {
+    if (!this.state.isPurchased) return;
+
+    new LottoList(document.querySelector("#lotto-list"), {
+      lottoBundle: this.state.lottoBundle,
+    });
+
+    new WinningNumbersForm(document.querySelector("#winning-numbers-form"), {
+      onModalOpen: () => this.handleModalOpen(),
+      setWinningNumbers: (winningNumbers) => this.setState({ winningNumbers }),
+      setBonusNumber: (bonusNumber) => this.setState({ bonusNumber }),
+    });
+
+    if (this.state.isModalOpen) {
+      new ResultModal(document.querySelector("#modal-root"), {
+        isOpen: this.state.isModalOpen,
+        onClose: () => this.handleModalClose(),
+        price: this.state.price,
         lottoBundle: this.state.lottoBundle,
+        winningNumbers: this.state.winningNumbers,
+        bonusNumber: this.state.bonusNumber,
       });
-      new WinningNumbersForm(document.querySelector("#winning-numbers-form"), {
-        onModalOpen: () => this.handleModalOpen(),
-        setWinningNumbers: (winningNumbers) =>
-          this.setState({ winningNumbers }),
-        setBonusNumber: (bonusNumber) => this.setState({ bonusNumber }),
-      });
-      if (this.state.isModalOpen) {
-        new ResultModal(document.querySelector("#modal-root"), {
-          isOpen: this.state.isModalOpen,
-          onClose: () => this.handleModalClose(),
-          price: this.state.price,
-          lottoBundle: this.state.lottoBundle,
-          winningNumbers: this.state.winningNumbers,
-          bonusNumber: this.state.bonusNumber,
-        });
-      }
     }
   }
 }

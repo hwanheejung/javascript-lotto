@@ -59,11 +59,11 @@ class Component {
   render() {
     this.$target.innerHTML = this.template();
     this.bindEvents();
-    this.mounted();
+    this.renderChildren();
   }
 
   /** 자식 컴포넌트 마운트 */
-  mounted() {}
+  renderChildren() {}
 }
 
 export default Component;
