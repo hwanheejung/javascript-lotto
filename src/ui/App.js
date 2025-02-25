@@ -10,7 +10,7 @@ class App extends Component {
   template() {
     return `
         <header id="header" class="text-title"></header>
-        <main id="main"></main>
+        <main id="main" class="text-body"></main>
         <footer id="footer" class="text-caption"></footer>
       `;
   }

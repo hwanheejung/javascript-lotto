@@ -15,7 +15,7 @@ class LottoForm extends Component {
     // TODO: validation
 
     const lottoBundle = lottoService.generateLottoBundle(price);
-    this.props.onPurchase(lottoBundle);
+    this.props.onPurchase(price, lottoBundle);
   }
 
   template() {

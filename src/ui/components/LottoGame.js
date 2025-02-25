@@ -1,3 +1,4 @@
+import { Lotto } from "../../constants/rules.js";
 import Component from "./Component.js";
 import LottoForm from "./LottoForm.js";
 import LottoList from "./LottoList.js";
@@ -8,13 +9,16 @@ class LottoGame extends Component {
   setup() {
     this.state = {
       isPurchased: false,
+      price: 0,
       lottoBundle: [],
       isModalOpen: false,
+      winningNumbers: Array(Lotto.SIZE).fill(""),
+      bonusNumber: "",
     };
   }
 
-  handlePurchase(lottoBundle) {
-    this.setState({ isPurchased: true, lottoBundle });
+  handlePurchase(price, lottoBundle) {
+    this.setState({ isPurchased: true, price, lottoBundle });
   }
 
   handleModalOpen() {
@@ -27,7 +31,7 @@ class LottoGame extends Component {
 
   template() {
     return `
-      <section id="lotto-game" class="text-body">
+      <section id="lotto-game">
         <h2 class="text-title">🎱 내 번호 당첨 확인 🎱</h2>
         <div id="lotto-form"></div>
         <div id="lotto-list"></div>
@@ -39,7 +43,8 @@ class LottoGame extends Component {
 
   mounted() {
     new LottoForm(document.querySelector("#lotto-form"), {
-      onPurchase: (lottoBundle) => this.handlePurchase(lottoBundle),
+      onPurchase: (price, lottoBundle) =>
+        this.handlePurchase(price, lottoBundle),
     });
 
     if (this.state.isPurchased) {
@@ -48,12 +53,21 @@ class LottoGame extends Component {
       });
       new WinningNumbersForm(document.querySelector("#winning-numbers-form"), {
         onModalOpen: () => this.handleModalOpen(),
+        setWinningNumbers: (winningNumbers) =>
+          this.setState({ winningNumbers }),
+        setBonusNumber: (bonusNumber) => this.setState({ bonusNumber }),
       });
+      if (this.state.isModalOpen) {
+        new ResultModal(document.querySelector("#modal-root"), {
+          isOpen: this.state.isModalOpen,
+          onClose: () => this.handleModalClose(),
+          price: this.state.price,
+          lottoBundle: this.state.lottoBundle,
+          winningNumbers: this.state.winningNumbers,
+          bonusNumber: this.state.bonusNumber,
+        });
+      }
     }
-    new ResultModal(document.querySelector("#modal-root"), {
-      isOpen: this.state.isModalOpen,
-      onClose: () => this.handleModalClose(),
-    });
   }
 }
 

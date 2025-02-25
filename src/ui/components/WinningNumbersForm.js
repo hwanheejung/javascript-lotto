@@ -14,6 +14,12 @@ class WinningNumbersForm extends Component {
   }
 
   openResult() {
+    const { setWinningNumbers, setBonusNumber } = this.props;
+    const { winningNumbers, bonusNumber } = this.state;
+
+    setWinningNumbers(winningNumbers.map(Number));
+    setBonusNumber(Number(bonusNumber));
+
     this.props.onModalOpen();
   }
 
