@@ -9,12 +9,20 @@ class ResultModal extends Modal {
 
   setup() {
     super.setup();
+    this.events = {
+      ...this.events,
+      "click@.modal__restart": this.handleClickRestart,
+    };
   }
 
   calculateProfitRate(totalReward) {
     const { price } = this.props;
 
     return ((totalReward - price) / price) * 100;
+  }
+
+  handleClickRestart() {
+    this.props.onRestart();
   }
 
   content() {

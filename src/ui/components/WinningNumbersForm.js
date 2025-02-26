@@ -25,9 +25,10 @@ class WinningNumbersForm extends Component {
 
     const { validateWinningNumbers, validateBonusNumber } = useUIValidation();
     const winningNumbers = validateWinningNumbers(_winningNumbers);
+    if (!winningNumbers) return;
     const bonusNumber = validateBonusNumber(_bonusNumber, winningNumbers);
+    if (!bonusNumber) return;
 
-    if (!winningNumbers || !bonusNumber) return;
     setWinningNumbers(winningNumbers);
     setBonusNumber(bonusNumber);
     onModalOpen();

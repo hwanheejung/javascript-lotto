@@ -21,6 +21,10 @@ class LottoGame extends Component {
     this.setState({ isModalOpen: openModal });
   }
 
+  resetGame() {
+    this.render();
+  }
+
   template() {
     return `
       <section id="lotto-game">
@@ -53,6 +57,8 @@ class LottoGame extends Component {
         new ResultModal(modalRoot, {
           isOpen: this.state.isModalOpen,
           onClose: () => this.setState({ isModalOpen: false }),
+          onRestart: () => this.resetGame(),
+
           price: this.state.price,
           lottoBundle: this.state.lottoBundle,
           winningNumbers: this.state.winningNumbers,

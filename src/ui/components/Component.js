@@ -32,9 +32,6 @@ class Component {
       }
     });
 
-    // this.unmount();
-    // this.render();
-
     this.componentDidUpdate([...this.changedKeys]); // 변경된 state 목록 전달
   }
 
