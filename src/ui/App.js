@@ -15,7 +15,7 @@ class App extends Component {
       `;
   }
 
-  renderChildren() {
+  componentDidMount() {
     new Header(document.querySelector("#header"));
     new LottoGame(document.querySelector("#main"));
     new Footer(document.querySelector("#footer"));

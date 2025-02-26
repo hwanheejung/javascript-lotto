@@ -37,6 +37,12 @@ class LottoGame extends Component {
     `;
   }
 
+  componentDidMount() {
+    new LottoForm(document.querySelector("#lotto-form"), {
+      onPurchase: (price, lottoBundle) => this.setState({ price, lottoBundle }),
+    });
+  }
+
   componentDidUpdate(changedKeys) {
     if (changedKeys.includes("price")) {
       new LottoList(document.querySelector("#lotto-list"), {
@@ -55,10 +61,8 @@ class LottoGame extends Component {
 
       if (this.state.isModalOpen) {
         new ResultModal(modalRoot, {
-          isOpen: this.state.isModalOpen,
           onClose: () => this.setState({ isModalOpen: false }),
           onRestart: () => this.resetGame(),
-
           price: this.state.price,
           lottoBundle: this.state.lottoBundle,
           winningNumbers: this.state.winningNumbers,
@@ -68,12 +72,6 @@ class LottoGame extends Component {
         modalRoot.innerHTML = "";
       }
     }
-  }
-
-  renderChildren() {
-    new LottoForm(document.querySelector("#lotto-form"), {
-      onPurchase: (price, lottoBundle) => this.setState({ price, lottoBundle }),
-    });
   }
 }
 

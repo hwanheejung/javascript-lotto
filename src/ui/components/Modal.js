@@ -17,8 +17,6 @@ class Modal extends Component {
   }
 
   template() {
-    if (!this.props.isOpen) return "";
-
     return `
       <div class="modal">
         <div class="modal__content">
