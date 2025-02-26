@@ -6,20 +6,19 @@ import ResultModal from "./ResultModal.js";
 import WinningNumbersForm from "./WinningNumbersForm.js";
 
 const TITLE = "🎱 내 번호 당첨 확인 🎱";
-
 class LottoGame extends Component {
   setup() {
     this.state = {
       price: 0,
       lottoBundle: [],
-      isModalOpen: false,
       winningNumbers: Array(Lotto.SIZE).fill(""),
       bonusNumber: "",
+      isModalOpen: false,
     };
   }
 
-  setIsModalOpen(isModalOpen) {
-    this.setState({ isModalOpen });
+  setIsModalOpen(openModal) {
+    this.setState({ isModalOpen: openModal });
   }
 
   template() {
@@ -34,33 +33,41 @@ class LottoGame extends Component {
     `;
   }
 
+  componentDidUpdate(changedKeys) {
+    if (changedKeys.includes("price")) {
+      new LottoList(document.querySelector("#lotto-list"), {
+        lottoBundle: this.state.lottoBundle,
+      });
+      new WinningNumbersForm(document.querySelector("#winning-numbers-form"), {
+        onModalOpen: () => this.setIsModalOpen(true),
+        setWinningNumbers: (winningNumbers) =>
+          this.setState({ winningNumbers }),
+        setBonusNumber: (bonusNumber) => this.setState({ bonusNumber }),
+      });
+    }
+
+    if (changedKeys.includes("isModalOpen")) {
+      const modalRoot = document.querySelector("#modal-root");
+
+      if (this.state.isModalOpen) {
+        new ResultModal(modalRoot, {
+          isOpen: this.state.isModalOpen,
+          onClose: () => this.setState({ isModalOpen: false }),
+          price: this.state.price,
+          lottoBundle: this.state.lottoBundle,
+          winningNumbers: this.state.winningNumbers,
+          bonusNumber: this.state.bonusNumber,
+        });
+      } else {
+        modalRoot.innerHTML = "";
+      }
+    }
+  }
+
   renderChildren() {
     new LottoForm(document.querySelector("#lotto-form"), {
       onPurchase: (price, lottoBundle) => this.setState({ price, lottoBundle }),
     });
-
-    if (!this.state.price) return;
-
-    new LottoList(document.querySelector("#lotto-list"), {
-      lottoBundle: this.state.lottoBundle,
-    });
-
-    new WinningNumbersForm(document.querySelector("#winning-numbers-form"), {
-      onModalOpen: () => this.setIsModalOpen(true),
-      setWinningNumbers: (winningNumbers) => this.setState({ winningNumbers }),
-      setBonusNumber: (bonusNumber) => this.setState({ bonusNumber }),
-    });
-
-    if (this.state.isModalOpen) {
-      new ResultModal(document.querySelector("#modal-root"), {
-        isOpen: this.state.isModalOpen,
-        onClose: () => this.setIsModalOpen(false),
-        price: this.state.price,
-        lottoBundle: this.state.lottoBundle,
-        winningNumbers: this.state.winningNumbers,
-        bonusNumber: this.state.bonusNumber,
-      });
-    }
   }
 }
 

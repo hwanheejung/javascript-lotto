@@ -9,33 +9,21 @@ class ResultModal extends Modal {
 
   setup() {
     super.setup();
-    this.state = {
-      formattedResults: [],
-      totalReward: 0,
-    };
   }
 
-  componentDidMount() {
-    const { lottoBundle, winningNumbers, bonusNumber } = this.props;
-
-    const { formattedResults, totalReward } = lottoService.evaluateResults(
-      lottoBundle,
-      winningNumbers,
-      bonusNumber,
-    );
-
-    this.setState({ formattedResults, totalReward });
-  }
-
-  calculateProfitRate() {
-    const { totalReward } = this.state;
+  calculateProfitRate(totalReward) {
     const { price } = this.props;
 
     return ((totalReward - price) / price) * 100;
   }
 
   content() {
-    const { formattedResults } = this.state;
+    const { lottoBundle, winningNumbers, bonusNumber } = this.props;
+    const { formattedResults, totalReward } = lottoService.evaluateResults(
+      lottoBundle,
+      winningNumbers,
+      bonusNumber,
+    );
 
     return ` 
         <h2 class="modal__title text-subtitle">🏆 당첨 통계 🏆</h2>
@@ -66,7 +54,7 @@ class ResultModal extends Modal {
             </table>
         </div>
         <p class="modal__profitRate">
-          당신의 총 수익률은 ${this.calculateProfitRate().toFixed(2)}%입니다.
+          당신의 총 수익률은 ${this.calculateProfitRate(totalReward).toFixed(2)}%입니다.
         </p>
         <button class="modal__restart">다시 시작하기</button>
     `;

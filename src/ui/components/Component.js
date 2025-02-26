@@ -4,6 +4,7 @@ class Component {
     this.props = props;
     this.state = {};
     this.events = {};
+    this.changedKeys = new Set();
 
     this.setup();
     this.render();
@@ -15,21 +16,26 @@ class Component {
 
   componentDidMount() {}
   componentWillUpdate() {}
-  componentDidUpdate() {}
+  componentDidUpdate(changedKeys) {}
   componentWillUnmount() {}
 
   setState(newState) {
     this.componentWillUpdate();
+    const prevState = { ...this.state };
+    this.state = { ...this.state, ...newState };
 
-    if (typeof newState === "function") {
-      this.state = { ...this.state, ...newState(this.state) };
-    } else {
-      this.state = { ...this.state, ...newState };
-    }
+    // 변경된 state 키 찾기
+    this.changedKeys.clear();
+    Object.keys(newState).forEach((key) => {
+      if (prevState[key] !== newState[key]) {
+        this.changedKeys.add(key);
+      }
+    });
 
-    this.unmount(); // 기존 DOM 제거
-    this.render(); // 새로운 상태로 다시 렌더링
-    this.componentDidUpdate();
+    // this.unmount();
+    // this.render();
+
+    this.componentDidUpdate([...this.changedKeys]); // 변경된 state 목록 전달
   }
 
   /** 이벤트 등록 */
