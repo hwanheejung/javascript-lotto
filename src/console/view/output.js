@@ -1,4 +1,4 @@
-import commaizeNumber from "../utils/commaizeNumber.js";
+import commaizeNumber from "../../utils/commaizeNumber.js";
 
 const output = {
   /**

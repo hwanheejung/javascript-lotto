@@ -1,4 +1,4 @@
-import useValidation from "../validation/useValidation.js";
+import useValidation from "../../validation/useValidation.js";
 import retryUntilValid from "./retryUntilValid.js";
 
 const executeValidations = (input, rules) => {

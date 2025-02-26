@@ -1,6 +1,6 @@
-import input from "../view/input.js";
-import output from "../view/output.js";
-import lottoService from "./lottoService.js";
+import input from "./view/input.js";
+import output from "./view/output.js";
+import lottoService from "../app/lottoService.js";
 
 const startLottoGame = async () => {
   // 1. 구입 금액 입력 및 로또 생성
