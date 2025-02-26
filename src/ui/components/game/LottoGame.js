@@ -1,9 +1,10 @@
-import { Lotto } from "../../constants/rules.js";
-import Component from "./Component.js";
+import { Lotto } from "../../../constants/rules.js";
+import ResultModal from "../modal/ResultModal.js";
+import Component from "../core/Component.js";
 import LottoForm from "./LottoForm.js";
 import LottoList from "./LottoList.js";
-import ResultModal from "./ResultModal.js";
 import WinningNumbersForm from "./WinningNumbersForm.js";
+import "./game.css";
 
 const TITLE = "🎱 내 번호 당첨 확인 🎱";
 class LottoGame extends Component {

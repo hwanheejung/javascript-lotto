@@ -39,3 +39,18 @@
   font-weight: 700;
   line-height: 16px;
 }
+
+.button {
+  background-color: var(--color-primary);
+  color: var(--color-greyscale-1);
+  border-radius: 2px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

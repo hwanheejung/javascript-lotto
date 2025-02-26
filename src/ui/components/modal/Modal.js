@@ -1,5 +1,5 @@
-import Component from "./Component.js";
-import "../styles/modal.css";
+import Component from "../core/Component.js";
+import "./modal.css";
 
 class Modal extends Component {
   setup() {

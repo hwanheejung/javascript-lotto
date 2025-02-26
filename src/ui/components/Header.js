@@ -1,4 +1,4 @@
-import Component from "./Component";
+import Component from "./core/Component";
 
 const TITLE = "🎱 행운의 로또";
 

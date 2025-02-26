@@ -1,5 +1,5 @@
-import lottoService from "../../app/lottoService.js";
-import commaizeNumber from "../../utils/commaizeNumber.js";
+import lottoService from "../../../app/lottoService.js";
+import commaizeNumber from "../../../utils/commaizeNumber.js";
 import Modal from "./Modal.js";
 
 class ResultModal extends Modal {
@@ -64,7 +64,7 @@ class ResultModal extends Modal {
         <p class="modal__profitRate">
           당신의 총 수익률은 ${this.calculateProfitRate(totalReward).toFixed(2)}%입니다.
         </p>
-        <button class="modal__restart">다시 시작하기</button>
+        <button class="button">다시 시작하기</button>
     `;
   }
 }

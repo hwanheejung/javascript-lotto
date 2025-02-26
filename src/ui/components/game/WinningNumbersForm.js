@@ -1,6 +1,6 @@
-import { Lotto, LottoNumber } from "../../constants/rules.js";
-import useUIValidation from "../useUIValidation.js";
-import Component from "./Component.js";
+import { Lotto, LottoNumber } from "../../../constants/rules.js";
+import useUIValidation from "../../useUIValidation.js";
+import Component from "../core/Component.js";
 
 class WinningNumbersForm extends Component {
   setup() {
@@ -62,6 +62,7 @@ class WinningNumbersForm extends Component {
               return `
                 <input 
                   type="number" 
+                  name="winning-number"
                   class="winning-numbers__input" 
                   min="${LottoNumber.MIN}" 
                   max="${LottoNumber.MAX}" 
@@ -77,6 +78,7 @@ class WinningNumbersForm extends Component {
             <div>
               <input 
                 type="number" 
+                name="bonus-number"
                 class="winning-numbers__input" 
                 min="${LottoNumber.MIN}" 
                 max="${LottoNumber.MAX}" 
@@ -84,7 +86,7 @@ class WinningNumbersForm extends Component {
             </div>
           </div>
         </div>
-        <button class="open-result-button" disabled>결과 확인하기</button>
+        <button class="open-result-button button" disabled>결과 확인하기</button>
     `;
   }
 }

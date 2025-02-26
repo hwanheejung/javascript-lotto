@@ -1,6 +1,6 @@
-import lottoService from "../../app/lottoService.js";
-import useUIValidation from "../useUIValidation.js";
-import Component from "./Component.js";
+import lottoService from "../../../app/lottoService.js";
+import useUIValidation from "../../useUIValidation.js";
+import Component from "../core/Component.js";
 
 const LABEL = "구입할 금액을 입력해주세요.";
 const PLACEHOLDER = "금액";
@@ -10,6 +10,7 @@ class LottoForm extends Component {
   setup() {
     this.events = {
       "submit@form": this.handleSubmit,
+      "input@#price": this.activateButton,
     };
   }
 
@@ -24,6 +25,16 @@ class LottoForm extends Component {
     this.props.onPurchase(price, lottoBundle);
   }
 
+  activateButton() {
+    const price = this.$target.querySelector("#price").value;
+
+    if (price.length < 4) {
+      this.$target.querySelector("button").disabled = true;
+    } else {
+      this.$target.querySelector("button").disabled = false;
+    }
+  }
+
   template() {
     return `
       <form class="lotto-form" method="post">
@@ -35,7 +46,7 @@ class LottoForm extends Component {
             name="price"
             placeholder="${PLACEHOLDER}" 
           />
-          <button type="submit">${BUTTON}</button>
+          <button type="submit" class="button" disabled>${BUTTON}</button>
         </div>
       </form>
     `;

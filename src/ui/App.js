@@ -1,10 +1,10 @@
-import "./styles/global.css";
-import "./styles/index.css";
 import "./styles/reset.css";
-import Component from "./components/Component.js";
+import "./styles/global.css";
+import "./styles/layout.css";
+import Component from "./components/core/Component.js";
 import Footer from "./components/Footer.js";
 import Header from "./components/Header.js";
-import LottoGame from "./components/LottoGame.js";
+import LottoGame from "./components/game/LottoGame.js";
 
 class App extends Component {
   template() {

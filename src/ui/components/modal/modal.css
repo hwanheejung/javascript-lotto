@@ -57,10 +57,3 @@
   margin: 32px auto;
   font-weight: 700;
 }
-
-.modal__restart {
-  padding-block: 10px;
-  background-color: var(--color-primary);
-  color: var(--color-greyscale-1);
-  border-radius: 5px;
-}
