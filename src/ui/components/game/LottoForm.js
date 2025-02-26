@@ -16,7 +16,6 @@ class LottoForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     const { validatePrice } = useUIValidation();
     const price = validatePrice(event.target.price.value);
     if (!price) return;

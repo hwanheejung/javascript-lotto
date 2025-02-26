@@ -2,6 +2,14 @@ import lottoService from "../../../app/lottoService.js";
 import commaizeNumber from "../../../utils/commaizeNumber.js";
 import Modal from "./Modal.js";
 
+const TITLE = "🏆 당첨 통계 🏆";
+const TABLE = {
+  WINNING_CRITERIA: "일치 개수",
+  REWARD: "당첨금",
+  COUNT: "당첨 개수",
+};
+const RESTART = "다시 시작하기";
+
 class ResultModal extends Modal {
   constructor($target, props) {
     super($target, props);
@@ -17,7 +25,6 @@ class ResultModal extends Modal {
 
   calculateProfitRate(totalReward) {
     const { price } = this.props;
-
     return ((totalReward - price) / price) * 100;
   }
 
@@ -34,14 +41,14 @@ class ResultModal extends Modal {
     );
 
     return ` 
-        <h2 class="modal__title text-subtitle">🏆 당첨 통계 🏆</h2>
+        <h2 class="modal__title text-subtitle">${TITLE}</h2>
         <div class="modal__result">
             <table class="modal__table">
                 <thead>
                     <tr>
-                        <th>일치 개수</th>
-                        <th>당첨금</th>
-                        <th>당첨 개수</th>
+                        <th>${TABLE.WINNING_CRITERIA}</th>
+                        <th>${TABLE.REWARD}</th>
+                        <th>${TABLE.COUNT}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,7 +71,7 @@ class ResultModal extends Modal {
         <p class="modal__profitRate">
           당신의 총 수익률은 ${this.calculateProfitRate(totalReward).toFixed(2)}%입니다.
         </p>
-        <button class="button">다시 시작하기</button>
+        <button class="modal__restart button">${RESTART}</button>
     `;
   }
 }

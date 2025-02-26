@@ -1,14 +1,11 @@
-/* LottoGame */
 #lotto-game {
   width: min(100%, 400px);
-  height: 80%;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 5px;
   padding: 40px 16px;
   margin: 20px;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
 
   h2 {
     margin-inline: auto;
@@ -34,39 +31,34 @@
   }
 }
 
-/* Lotto List */
-#lotto-list {
-  .lotto-list__item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-block: 5px;
+.lotto-list__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-block: 5px;
 
-    span:first-child {
-      font-size: 3.6rem;
-      padding-top: 5px;
-    }
+  span:first-child {
+    font-size: 3.6rem;
+    padding-top: 5px;
   }
 }
 
-/* Winning Numbers Form */
 #winning-numbers-form {
   margin-top: auto;
   & > div {
     display: flex;
     justify-content: space-between;
   }
-
-  .winning-numbers {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-  }
-  .winning-numbers > div {
-    display: flex;
-    gap: 4px;
-    margin-top: 8px;
-  }
+}
+.winning-numbers {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.winning-numbers > div {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
 }
 
 .winning-numbers__input {

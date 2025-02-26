@@ -2,6 +2,11 @@ import { Lotto, LottoNumber } from "../../../constants/rules.js";
 import useUIValidation from "../../useUIValidation.js";
 import Component from "../core/Component.js";
 
+const TITLE = "지난 주 당첨번호 6개와 보너스 번호 1개를 입력해주세요.";
+const WINNING_NUMBERS = "당첨 번호";
+const BONUS_NUMBER = "보너스 번호";
+const CHECK_RESULT = "결과 확인하기";
+
 class WinningNumbersForm extends Component {
   setup() {
     this.events = {
@@ -53,10 +58,10 @@ class WinningNumbersForm extends Component {
 
   template() {
     return `
-        <p class="winning-numbers__title">지난 주 당첨번호 6개와 보너스 번호 1개를 입력해주세요.</p>
+        <p class="winning-numbers__title">${TITLE}</p>
         <div>
           <div class="winning-numbers winning-numbers__main">
-            <span>당첨 번호</span>  
+            <span>${WINNING_NUMBERS}</span>  
             <div>
             ${Array.from({ length: Lotto.SIZE }, (_, index) => {
               return `
@@ -74,7 +79,7 @@ class WinningNumbersForm extends Component {
           </div>
 
           <div class="winning-numbers winning-numbers__bonus">
-            <span>보너스 번호</span>
+            <span>${BONUS_NUMBER}</span>
             <div>
               <input 
                 type="number" 
@@ -86,7 +91,7 @@ class WinningNumbersForm extends Component {
             </div>
           </div>
         </div>
-        <button class="open-result-button button" disabled>결과 확인하기</button>
+        <button class="open-result-button button" disabled>${CHECK_RESULT}</button>
     `;
   }
 }

@@ -7,8 +7,7 @@ class Component {
     this.changedKeys = new Set();
 
     this.setup();
-    this.render();
-    this.componentDidMount();
+    this.initialRender();
   }
 
   /** 초기 상태 설정 */
@@ -52,16 +51,11 @@ class Component {
     return "";
   }
 
-  /** 기존 DOM 제거 */
-  unmount() {
-    this.componentWillUnmount();
-    this.$target.innerHTML = "";
-  }
-
-  /** 렌더링 */
-  render() {
+  /** 초기 렌더링 */
+  initialRender() {
     this.$target.innerHTML = this.template();
     this.bindEvents();
+    this.componentDidMount();
   }
 }
 
