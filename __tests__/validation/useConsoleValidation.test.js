@@ -1,13 +1,13 @@
+import useConsoleValidation from "../../src/console/useConsoleValidation.js";
 import { ERROR_MESSAGE } from "../../src/constants/error.js";
-import useValidation from "../../src/view/useValidation.js";
 
-describe("view/useValidation", () => {
+describe("view/useConsoleValidation", () => {
   const {
     validatePrice,
     validateWinningNumbers,
     validateBonusNumber,
     validateRestart,
-  } = useValidation();
+  } = useConsoleValidation();
 
   test.each([
     ["1000", undefined],

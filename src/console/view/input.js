@@ -1,14 +1,5 @@
-import useValidation from "../../validation/useValidation.js";
+import useConsoleValidation from "../useConsoleValidation.js";
 import retryUntilValid from "./retryUntilValid.js";
-
-const executeValidations = (input, rules) => {
-  for (const rule of rules) {
-    rule(input);
-  }
-  return input;
-};
-
-const useConsoleValidation = useValidation(executeValidations);
 
 const input = {
   /**
