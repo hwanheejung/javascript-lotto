@@ -1,6 +1,6 @@
-import { Lotto } from "../../../constants/rules.js";
-import ResultModal from "../modal/ResultModal.js";
+import Lotto from "../../../domain/Lotto.js";
 import Component from "../core/Component.js";
+import ResultModal from "../modal/ResultModal.js";
 import LottoForm from "./LottoForm.js";
 import LottoList from "./LottoList.js";
 import WinningNumbersForm from "./WinningNumbersForm.js";

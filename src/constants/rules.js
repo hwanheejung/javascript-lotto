@@ -9,8 +9,4 @@ export const LottoNumber = {
   MAX: 45,
 };
 
-export const Lotto = {
-  SIZE: 6,
-};
-
 export const VALID_RESTART_INPUTS = ["y", "n"];

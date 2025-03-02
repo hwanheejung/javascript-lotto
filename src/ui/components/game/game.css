@@ -55,13 +55,18 @@
   flex-direction: column;
   margin-top: 10px;
 }
+
+.winning-numbers__bonus {
+  align-items: flex-end;
+}
+
 .winning-numbers > div {
   display: flex;
   gap: 4px;
   margin-top: 8px;
 }
 
-.winning-numbers__input {
+.number__input {
   width: 36px;
   height: 36px;
   border: 1px solid var(--color-greyscale-3);

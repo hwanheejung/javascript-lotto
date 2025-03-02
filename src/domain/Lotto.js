@@ -5,6 +5,8 @@ import {
 } from "../validation/validationRules.js";
 
 class Lotto {
+  static SIZE = 6;
+
   #numbers;
 
   constructor(numbers) {

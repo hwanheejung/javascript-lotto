@@ -10,15 +10,15 @@ class LottoForm extends Component {
   };
 
   static SELECTOR = {
-    FORM: "lotto-form",
-    PRICE: "price",
+    FORM: ".lotto-form",
+    PRICE: "#price",
   };
 
   setup() {
     this.validation = useUIValidation();
     this.events = {
-      [`submit@.${LottoForm.SELECTOR.FORM}`]: this.submit.bind(this),
-      [`input@#${LottoForm.SELECTOR.PRICE}`]: this.activateButton.bind(this),
+      [`submit@${LottoForm.SELECTOR.FORM}`]: this.submit.bind(this),
+      [`input@${LottoForm.SELECTOR.PRICE}`]: this.activateButton.bind(this),
     };
   }
 
@@ -39,16 +39,18 @@ class LottoForm extends Component {
 
   template() {
     return `
-      <form class="${LottoForm.SELECTOR.FORM}" method="post">
+      <form class="${LottoForm.SELECTOR.FORM.slice(1)}" method="post">
         <label for="price">${LottoForm.MESSAGE.LABEL}</label>
         <div>
           <input 
             type="number" 
-            id="${LottoForm.SELECTOR.PRICE}" 
+            id="${LottoForm.SELECTOR.PRICE.slice(1)}" 
             name="price"
             placeholder="${LottoForm.MESSAGE.PLACEHOLDER}" 
           />
-          <button type="submit" class="button" disabled>${LottoForm.MESSAGE.BUTTON}</button>
+          <button type="submit" class="button" disabled>${
+            LottoForm.MESSAGE.BUTTON
+          }</button>
         </div>
       </form>
     `;

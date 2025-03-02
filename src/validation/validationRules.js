@@ -1,10 +1,10 @@
 import { ERROR_MESSAGE } from "../constants/error.js";
 import {
-  Lotto,
   LottoShop,
   LottoNumber,
   VALID_RESTART_INPUTS,
 } from "../constants/rules.js";
+import Lotto from "../domain/Lotto.js";
 
 export const validateNumber = (input) => {
   if (!/^\d+$/.test(input)) {

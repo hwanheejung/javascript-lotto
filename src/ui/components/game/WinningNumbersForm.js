@@ -1,4 +1,5 @@
-import { Lotto, LottoNumber } from "../../../constants/rules.js";
+import { LottoNumber } from "../../../constants/rules.js";
+import Lotto from "../../../domain/Lotto.js";
 import useUIValidation from "../../useUIValidation.js";
 import Component from "../core/Component.js";
 
@@ -11,15 +12,18 @@ class WinningNumbersForm extends Component {
   };
 
   static SELECTOR = {
-    WINNING_NUMBERS_INPUT: "winning-numbers__input",
-    OPEN_RESULT_BUTTON: "open-result-button",
+    NUMBER_INPUT: ".number__input",
+    OPEN_RESULT_BUTTON: ".open-result-button",
+    BONUS_INPUT: ".winning-numbers__bonus input",
+    WINNING_INPUT: ".number__input[data-index]",
   };
 
   setup() {
+    this.validation = useUIValidation();
     this.events = {
-      [`click@.${WinningNumbersForm.SELECTOR.OPEN_RESULT_BUTTON}`]:
+      [`click@${WinningNumbersForm.SELECTOR.OPEN_RESULT_BUTTON}`]:
         this.openResult.bind(this),
-      [`input@.${WinningNumbersForm.SELECTOR.WINNING_NUMBERS_INPUT}`]:
+      [`input@${WinningNumbersForm.SELECTOR.NUMBER_INPUT}`]:
         this.activateButton.bind(this),
     };
   }
@@ -29,18 +33,21 @@ class WinningNumbersForm extends Component {
 
     const { setWinningNumbers, setBonusNumber, onModalOpen } = this.props;
     const _winningNumbers = Array.from(
-      this.target.querySelectorAll(".winning-numbers__input[data-index]"),
+      this.target.querySelectorAll(WinningNumbersForm.SELECTOR.WINNING_INPUT),
       (input) => input.value
     ).join(",");
 
     const _bonusNumber = this.target.querySelector(
-      ".winning-numbers__bonus input"
+      WinningNumbersForm.SELECTOR.BONUS_INPUT
     ).value;
 
-    const { validateWinningNumbers, validateBonusNumber } = useUIValidation();
-    const winningNumbers = validateWinningNumbers(_winningNumbers);
+    const winningNumbers =
+      this.validation.validateWinningNumbers(_winningNumbers);
     if (!winningNumbers) return;
-    const bonusNumber = validateBonusNumber(_bonusNumber, winningNumbers);
+    const bonusNumber = this.validation.validateBonusNumber(
+      _bonusNumber,
+      winningNumbers
+    );
     if (!bonusNumber) return;
 
     setWinningNumbers(winningNumbers);
@@ -50,17 +57,17 @@ class WinningNumbersForm extends Component {
 
   activateButton() {
     const winningInputs = this.target.querySelectorAll(
-      ".winning-numbers__input[data-index]"
+      WinningNumbersForm.SELECTOR.WINNING_INPUT
     );
     const bonusInput = this.target.querySelector(
-      ".winning-numbers__bonus input"
+      WinningNumbersForm.SELECTOR.BONUS_INPUT
     );
     const isAllFilled = Array.from(winningInputs).every((input) => input.value);
     const isBonusFilled = bonusInput.value;
 
-    this.target.querySelector(".open-result-button").disabled = !(
-      isAllFilled && isBonusFilled
-    );
+    this.target.querySelector(
+      WinningNumbersForm.SELECTOR.OPEN_RESULT_BUTTON
+    ).disabled = !(isAllFilled && isBonusFilled);
   }
 
   template() {
@@ -77,7 +84,7 @@ class WinningNumbersForm extends Component {
                 <input 
                   type="number" 
                   name="winning-number"
-                  class="${WinningNumbersForm.SELECTOR.WINNING_NUMBERS_INPUT}" 
+                  class="${WinningNumbersForm.SELECTOR.NUMBER_INPUT.slice(1)}" 
                   min="${LottoNumber.MIN}" 
                   max="${LottoNumber.MAX}" 
                   data-index="${index}"
@@ -93,16 +100,18 @@ class WinningNumbersForm extends Component {
               <input 
                 type="number" 
                 name="bonus-number"
-                class="winning-numbers__input" 
+                class="${WinningNumbersForm.SELECTOR.NUMBER_INPUT.slice(1)}" 
                 min="${LottoNumber.MIN}" 
                 max="${LottoNumber.MAX}" 
               />
             </div>
           </div>
         </div>
-        <button class="${
-          WinningNumbersForm.SELECTOR.OPEN_RESULT_BUTTON
-        } button" disabled>${WinningNumbersForm.MESSAGE.CHECK_RESULT}</button>
+        <button class="${WinningNumbersForm.SELECTOR.OPEN_RESULT_BUTTON.slice(
+          1
+        )} button" disabled>
+        ${WinningNumbersForm.MESSAGE.CHECK_RESULT}
+        </button>
     `;
   }
 }

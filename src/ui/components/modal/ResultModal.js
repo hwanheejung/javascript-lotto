@@ -12,7 +12,7 @@ class ResultModal extends Modal {
   };
 
   static SELECTOR = {
-    RESTART_BUTTON: "modal__restart",
+    RESTART_BUTTON: ".modal__restart",
   };
 
   constructor(target, props) {
@@ -33,7 +33,7 @@ class ResultModal extends Modal {
   setupEvents() {
     this.events = {
       ...this.events,
-      [`click@.${ResultModal.SELECTOR.RESTART_BUTTON}`]:
+      [`click@${ResultModal.SELECTOR.RESTART_BUTTON}`]:
         this.handleRestart.bind(this),
     };
   }
@@ -96,9 +96,9 @@ class ResultModal extends Modal {
             this.state.totalReward
           ).toFixed(2)}%입니다.
         </p>
-        <button class="${ResultModal.SELECTOR.RESTART_BUTTON} button">${
-      ResultModal.MESSAGE.RESTART
-    }</button>
+        <button class="${ResultModal.SELECTOR.RESTART_BUTTON.slice(
+          1
+        )} button">${ResultModal.MESSAGE.RESTART}</button>
     `;
   }
 }
