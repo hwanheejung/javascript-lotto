@@ -3,7 +3,8 @@ class Component {
   props;
   state = {};
   events = {};
-  changedKeys = new Set();
+  #changedKeys = new Set();
+  #stateToUIMap = {};
 
   constructor($target, props = {}) {
     this.target = $target;
@@ -18,7 +19,13 @@ class Component {
 
   componentDidMount() {}
   componentWillUpdate() {}
-  componentDidUpdate(changedKeys) {}
+  componentDidUpdate(changedKeys) {
+    changedKeys.forEach((key) => {
+      if (this.#stateToUIMap[key]) {
+        this.#stateToUIMap[key]();
+      }
+    });
+  }
 
   setState(newState) {
     this.componentWillUpdate();
@@ -26,14 +33,20 @@ class Component {
     this.state = { ...this.state, ...newState };
 
     // 변경된 state 키 찾기
-    this.changedKeys.clear();
+    this.#changedKeys.clear();
     Object.keys(newState).forEach((key) => {
       if (prevState[key] !== newState[key]) {
-        this.changedKeys.add(key);
+        this.#changedKeys.add(key);
       }
     });
 
-    this.componentDidUpdate([...this.changedKeys]); // 변경된 state 목록 전달
+    this.componentDidUpdate([...this.#changedKeys]); // 변경된 state 목록 전달
+  }
+
+  /** 상태 변경 감시 */
+  watchState(stateKey, callback) {
+    this.#stateToUIMap = this.#stateToUIMap || {};
+    this.#stateToUIMap[stateKey] = callback;
   }
 
   /** 이벤트 등록 */

@@ -19,6 +19,9 @@ class LottoGame extends Component {
       bonusNumber: "",
       opened: false,
     };
+
+    this.watchState("price", this.renderLottoUI.bind(this));
+    this.watchState("opened", this.toggleModal.bind(this));
   }
 
   setOpened(openModal) {
@@ -42,38 +45,15 @@ class LottoGame extends Component {
   }
 
   componentDidMount() {
-    this.renderLottoForm();
-  }
-
-  componentDidUpdate(changedKeys) {
-    if (changedKeys.includes("price")) {
-      this.renderLottoList();
-      this.renderWinningNumbersForm();
-    }
-
-    if (changedKeys.includes("opened")) {
-      const modalRoot = document.querySelector("#modal-root");
-      if (this.state.opened) {
-        this.renderResultModal(modalRoot);
-        return;
-      }
-      modalRoot.innerHTML = "";
-    }
-  }
-
-  renderLottoForm() {
     new LottoForm(document.querySelector("#lotto-form"), {
       onPurchase: (price, lottoBundle) => this.setState({ price, lottoBundle }),
     });
   }
 
-  renderLottoList() {
+  renderLottoUI() {
     new LottoList(document.querySelector("#lotto-list"), {
       lottoBundle: this.state.lottoBundle,
     });
-  }
-
-  renderWinningNumbersForm() {
     new WinningNumbersForm(document.querySelector("#winning-numbers-form"), {
       onModalOpen: () => this.setOpened(true),
       setWinningNumbers: (winningNumbers) => this.setState({ winningNumbers }),
@@ -81,15 +61,20 @@ class LottoGame extends Component {
     });
   }
 
-  renderResultModal(modalRoot) {
-    new ResultModal(modalRoot, {
-      onClose: () => this.setState({ opened: false }),
-      onRestart: () => this.resetGame(),
-      price: this.state.price,
-      lottoBundle: this.state.lottoBundle,
-      winningNumbers: this.state.winningNumbers,
-      bonusNumber: this.state.bonusNumber,
-    });
+  toggleModal() {
+    const modalRoot = document.querySelector("#modal-root");
+    if (this.state.opened) {
+      new ResultModal(modalRoot, {
+        onClose: () => this.setState({ opened: false }),
+        onRestart: () => this.resetGame(),
+        price: this.state.price,
+        lottoBundle: this.state.lottoBundle,
+        winningNumbers: this.state.winningNumbers,
+        bonusNumber: this.state.bonusNumber,
+      });
+      return;
+    }
+    modalRoot.innerHTML = "";
   }
 }
 

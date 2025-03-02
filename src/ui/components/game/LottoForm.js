@@ -34,7 +34,6 @@ class LottoForm extends Component {
 
   activateButton() {
     const price = this.target.querySelector("#price").value;
-
     this.target.querySelector("button").disabled = price.length < 4;
   }
 

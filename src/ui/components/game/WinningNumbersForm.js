@@ -58,11 +58,9 @@ class WinningNumbersForm extends Component {
     const isAllFilled = Array.from(winningInputs).every((input) => input.value);
     const isBonusFilled = bonusInput.value;
 
-    if (isAllFilled && isBonusFilled) {
-      this.target.querySelector(".open-result-button").disabled = false;
-    } else {
-      this.target.querySelector(".open-result-button").disabled = true;
-    }
+    this.target.querySelector(".open-result-button").disabled = !(
+      isAllFilled && isBonusFilled
+    );
   }
 
   template() {
