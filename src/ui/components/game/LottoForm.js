@@ -7,11 +7,16 @@ class LottoForm extends Component {
   static PLACEHOLDER = "금액";
   static BUTTON = "구입";
 
+  static SELECTOR = {
+    FORM: "lotto-form",
+    PRICE: "price",
+  };
+
   setup() {
     this.validation = useUIValidation();
     this.events = {
-      "submit@form": this.submit.bind(this),
-      "input@#price": this.activateButton.bind(this),
+      [`submit@.${LottoForm.SELECTOR.FORM}`]: this.submit.bind(this),
+      [`input@#${LottoForm.SELECTOR.PRICE}`]: this.activateButton.bind(this),
     };
   }
 
@@ -33,12 +38,12 @@ class LottoForm extends Component {
 
   template() {
     return `
-      <form class="lotto-form" method="post">
+      <form class="${LottoForm.SELECTOR.FORM}" method="post">
         <label for="price">${LottoForm.LABEL}</label>
         <div>
           <input 
             type="number" 
-            id="price" 
+            id="${LottoForm.SELECTOR.PRICE}" 
             name="price"
             placeholder="${LottoForm.PLACEHOLDER}" 
           />

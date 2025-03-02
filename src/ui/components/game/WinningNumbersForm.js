@@ -8,10 +8,17 @@ class WinningNumbersForm extends Component {
   static BONUS_NUMBER = "보너스 번호";
   static CHECK_RESULT = "결과 확인하기";
 
+  static SELECTOR = {
+    WINNING_NUMBERS_INPUT: "winning-numbers__input",
+    OPEN_RESULT_BUTTON: "open-result-button",
+  };
+
   setup() {
     this.events = {
-      "click@.open-result-button": this.openResult.bind(this),
-      "input@.winning-numbers__input": this.activateButton.bind(this),
+      [`click@.${WinningNumbersForm.SELECTOR.OPEN_RESULT_BUTTON}`]:
+        this.openResult.bind(this),
+      [`input@.${WinningNumbersForm.SELECTOR.WINNING_NUMBERS_INPUT}`]:
+        this.activateButton.bind(this),
     };
   }
 
@@ -68,7 +75,7 @@ class WinningNumbersForm extends Component {
                 <input 
                   type="number" 
                   name="winning-number"
-                  class="winning-numbers__input" 
+                  class="${WinningNumbersForm.SELECTOR.WINNING_NUMBERS_INPUT}" 
                   min="${LottoNumber.MIN}" 
                   max="${LottoNumber.MAX}" 
                   data-index="${index}"
@@ -91,9 +98,9 @@ class WinningNumbersForm extends Component {
             </div>
           </div>
         </div>
-        <button class="open-result-button button" disabled>${
-          WinningNumbersForm.CHECK_RESULT
-        }</button>
+        <button class="${
+          WinningNumbersForm.SELECTOR.OPEN_RESULT_BUTTON
+        } button" disabled>${WinningNumbersForm.CHECK_RESULT}</button>
     `;
   }
 }
