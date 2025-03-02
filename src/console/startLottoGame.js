@@ -1,6 +1,6 @@
 import input from "./view/input.js";
 import output from "./view/output.js";
-import lottoService from "../app/lottoService.js";
+import lottoService from "../services/lottoService.js";
 
 const startLottoGame = async () => {
   // 1. 구입 금액 입력 및 로또 생성
@@ -20,7 +20,7 @@ const startLottoGame = async () => {
   const { formattedResults, totalReward } = lottoService.evaluateResults(
     lottoBundle,
     winningNumbers,
-    bonusNumber,
+    bonusNumber
   );
 
   // 4. 결과 출력

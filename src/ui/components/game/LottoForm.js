@@ -1,4 +1,4 @@
-import lottoService from "../../../app/lottoService.js";
+import lottoService from "../../../services/lottoService.js";
 import useUIValidation from "../../useUIValidation.js";
 import Component from "../core/Component.js";
 

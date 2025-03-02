@@ -1,4 +1,4 @@
-import lottoService from "../../../app/lottoService.js";
+import lottoService from "../../../services/lottoService.js";
 import commaizeNumber from "../../../utils/commaizeNumber.js";
 import Modal from "./Modal.js";
 
