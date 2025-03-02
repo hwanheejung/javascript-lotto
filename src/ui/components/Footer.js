@@ -1,16 +1,14 @@
-import Component from "./core/Component.js";
+const Footer = () => {
+  const Copyright = {
+    YEAR: new Date().getFullYear(),
+    OWNER: "woowacourse",
+  };
 
-const Copyright = {
-  YEAR: new Date().getFullYear(),
-  OWNER: "woowacourse",
-};
-
-class Footer extends Component {
-  template() {
-    return `
+  return `
+    <footer id="footer" class="text-caption">
       <p>Copyright ${Copyright.YEAR}. ${Copyright.OWNER}</p>
-    `;
-  }
-}
+    </footer>
+  `;
+};
 
 export default Footer;

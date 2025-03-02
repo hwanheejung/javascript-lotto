@@ -9,16 +9,14 @@ import LottoGame from "./components/game/LottoGame.js";
 class App extends Component {
   template() {
     return `
-        <header id="header" class="text-title"></header>
+        ${Header()}
         <main id="main" class="text-body"></main>
-        <footer id="footer" class="text-caption"></footer>
+        ${Footer()}
       `;
   }
 
   componentDidMount() {
-    new Header(document.querySelector("#header"));
     new LottoGame(document.querySelector("#main"));
-    new Footer(document.querySelector("#footer"));
   }
 }
 
