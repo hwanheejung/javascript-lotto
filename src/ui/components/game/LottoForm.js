@@ -8,6 +8,7 @@ class LottoForm extends Component {
   static BUTTON = "구입";
 
   setup() {
+    this.validation = useUIValidation();
     this.events = {
       "submit@form": this.submit,
       "input@#price": this.activateButton,
@@ -16,8 +17,8 @@ class LottoForm extends Component {
 
   submit(event) {
     event.preventDefault();
-    const { validatePrice } = useUIValidation();
-    const price = validatePrice(event.target.price.value);
+
+    const price = this.validation.validatePrice(event.target.price.value);
     if (!price) return;
 
     const lottoBundle = lottoService.generateLottoBundle(price);
