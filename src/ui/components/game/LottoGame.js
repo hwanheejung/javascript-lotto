@@ -7,7 +7,9 @@ import WinningNumbersForm from "./WinningNumbersForm.js";
 import "./game.css";
 
 class LottoGame extends Component {
-  static TITLE = "🎱 내 번호 당첨 확인 🎱";
+  static MESSAGE = {
+    TITLE: "🎱 내 번호 당첨 확인 🎱",
+  };
 
   setup() {
     this.state = {
@@ -30,7 +32,7 @@ class LottoGame extends Component {
   template() {
     return `
       <section id="lotto-game">
-        <h2 class="text-title">${LottoGame.TITLE}</h2>
+        <h2 class="text-title">${LottoGame.MESSAGE.TITLE}</h2>
         <div id="lotto-form"></div>
         <div id="lotto-list"></div>
         <div id="winning-numbers-form"></div>

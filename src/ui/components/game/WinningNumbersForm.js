@@ -3,10 +3,12 @@ import useUIValidation from "../../useUIValidation.js";
 import Component from "../core/Component.js";
 
 class WinningNumbersForm extends Component {
-  static TITLE = "지난 주 당첨번호 6개와 보너스 번호 1개를 입력해주세요.";
-  static WINNING_NUMBERS = "당첨 번호";
-  static BONUS_NUMBER = "보너스 번호";
-  static CHECK_RESULT = "결과 확인하기";
+  static MESSAGE = {
+    TITLE: "지난 주 당첨번호 6개와 보너스 번호 1개를 입력해주세요.",
+    WINNING_NUMBERS: "당첨 번호",
+    BONUS_NUMBER: "보너스 번호",
+    CHECK_RESULT: "결과 확인하기",
+  };
 
   static SELECTOR = {
     WINNING_NUMBERS_INPUT: "winning-numbers__input",
@@ -65,10 +67,12 @@ class WinningNumbersForm extends Component {
 
   template() {
     return `
-        <p class="winning-numbers__title">${WinningNumbersForm.TITLE}</p>
+        <p class="winning-numbers__title">${
+          WinningNumbersForm.MESSAGE.TITLE
+        }</p>
         <div>
           <div class="winning-numbers winning-numbers__main">
-            <span>${WinningNumbersForm.WINNING_NUMBERS}</span>  
+            <span>${WinningNumbersForm.MESSAGE.WINNING_NUMBERS}</span>  
             <div>
             ${Array.from({ length: Lotto.SIZE }, (_, index) => {
               return `
@@ -86,7 +90,7 @@ class WinningNumbersForm extends Component {
           </div>
 
           <div class="winning-numbers winning-numbers__bonus">
-            <span>${WinningNumbersForm.BONUS_NUMBER}</span>
+            <span>${WinningNumbersForm.MESSAGE.BONUS_NUMBER}</span>
             <div>
               <input 
                 type="number" 
@@ -100,7 +104,7 @@ class WinningNumbersForm extends Component {
         </div>
         <button class="${
           WinningNumbersForm.SELECTOR.OPEN_RESULT_BUTTON
-        } button" disabled>${WinningNumbersForm.CHECK_RESULT}</button>
+        } button" disabled>${WinningNumbersForm.MESSAGE.CHECK_RESULT}</button>
     `;
   }
 }

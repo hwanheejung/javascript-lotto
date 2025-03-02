@@ -3,13 +3,13 @@ import commaizeNumber from "../../../utils/commaizeNumber.js";
 import Modal from "./Modal.js";
 
 class ResultModal extends Modal {
-  static TITLE = "🏆 당첨 통계 🏆";
-  static TABLE = {
+  static MESSAGE = {
+    TITLE: "🏆 당첨 통계 🏆",
     WINNING_CRITERIA: "일치 개수",
     REWARD: "당첨금",
     COUNT: "당첨 개수",
+    RESTART: "다시 시작하기",
   };
-  static RESTART = "다시 시작하기";
 
   static SELECTOR = {
     RESTART_BUTTON: "modal__restart",
@@ -76,14 +76,14 @@ class ResultModal extends Modal {
 
   content() {
     return ` 
-        <h2 class="modal__title text-subtitle">${ResultModal.TITLE}</h2>
+        <h2 class="modal__title text-subtitle">${ResultModal.MESSAGE.TITLE}</h2>
         <div class="modal__result">
             <table class="modal__table">
                 <thead>
                     <tr>
-                        <th>${ResultModal.TABLE.WINNING_CRITERIA}</th>
-                        <th>${ResultModal.TABLE.REWARD}</th>
-                        <th>${ResultModal.TABLE.COUNT}</th>
+                        <th>${ResultModal.MESSAGE.WINNING_CRITERIA}</th>
+                        <th>${ResultModal.MESSAGE.REWARD}</th>
+                        <th>${ResultModal.MESSAGE.COUNT}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,7 +97,7 @@ class ResultModal extends Modal {
           ).toFixed(2)}%입니다.
         </p>
         <button class="${ResultModal.SELECTOR.RESTART_BUTTON} button">${
-      ResultModal.RESTART
+      ResultModal.MESSAGE.RESTART
     }</button>
     `;
   }

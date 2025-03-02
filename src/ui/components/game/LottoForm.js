@@ -3,9 +3,11 @@ import useUIValidation from "../../useUIValidation.js";
 import Component from "../core/Component.js";
 
 class LottoForm extends Component {
-  static LABEL = "구입할 금액을 입력해주세요.";
-  static PLACEHOLDER = "금액";
-  static BUTTON = "구입";
+  static MESSAGE = {
+    LABEL: "구입할 금액을 입력해주세요.",
+    PLACEHOLDER: "금액",
+    BUTTON: "구입",
+  };
 
   static SELECTOR = {
     FORM: "lotto-form",
@@ -39,15 +41,15 @@ class LottoForm extends Component {
   template() {
     return `
       <form class="${LottoForm.SELECTOR.FORM}" method="post">
-        <label for="price">${LottoForm.LABEL}</label>
+        <label for="price">${LottoForm.MESSAGE.LABEL}</label>
         <div>
           <input 
             type="number" 
             id="${LottoForm.SELECTOR.PRICE}" 
             name="price"
-            placeholder="${LottoForm.PLACEHOLDER}" 
+            placeholder="${LottoForm.MESSAGE.PLACEHOLDER}" 
           />
-          <button type="submit" class="button" disabled>${LottoForm.BUTTON}</button>
+          <button type="submit" class="button" disabled>${LottoForm.MESSAGE.BUTTON}</button>
         </div>
       </form>
     `;
