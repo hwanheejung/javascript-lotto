@@ -40,7 +40,7 @@ class Component {
   #bindEvents() {
     Object.keys(this.events || {}).forEach((eventKey) => {
       const [eventType, selector] = eventKey.split("@");
-      const callback = this.events[eventKey].bind(this);
+      const callback = this.events[eventKey];
 
       this.target.querySelectorAll(selector).forEach((el) => {
         el.addEventListener(eventType, callback);

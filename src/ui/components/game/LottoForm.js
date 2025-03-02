@@ -10,8 +10,8 @@ class LottoForm extends Component {
   setup() {
     this.validation = useUIValidation();
     this.events = {
-      "submit@form": this.submit,
-      "input@#price": this.activateButton,
+      "submit@form": this.submit.bind(this),
+      "input@#price": this.activateButton.bind(this),
     };
   }
 

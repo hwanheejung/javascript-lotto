@@ -19,7 +19,7 @@ class ResultModal extends Modal {
     super.setup();
     this.events = {
       ...this.events,
-      "click@.modal__restart": this.handleRestart,
+      "click@.modal__restart": this.handleRestart.bind(this),
     };
   }
 

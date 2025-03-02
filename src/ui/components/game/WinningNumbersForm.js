@@ -10,8 +10,8 @@ class WinningNumbersForm extends Component {
 
   setup() {
     this.events = {
-      "click@.open-result-button": this.openResult,
-      "input@.winning-numbers__input": this.activateButton,
+      "click@.open-result-button": this.openResult.bind(this),
+      "input@.winning-numbers__input": this.activateButton.bind(this),
     };
   }
 
