@@ -1,10 +1,13 @@
 class Component {
+  target;
+  props;
+  state = {};
+  events = {};
+  changedKeys = new Set();
+
   constructor($target, props = {}) {
-    this.$target = $target;
+    this.target = $target;
     this.props = props;
-    this.state = {};
-    this.events = {};
-    this.changedKeys = new Set();
 
     this.setup();
     this.initialRender();
@@ -16,7 +19,6 @@ class Component {
   componentDidMount() {}
   componentWillUpdate() {}
   componentDidUpdate(changedKeys) {}
-  componentWillUnmount() {}
 
   setState(newState) {
     this.componentWillUpdate();
@@ -35,12 +37,12 @@ class Component {
   }
 
   /** 이벤트 등록 */
-  bindEvents() {
+  #bindEvents() {
     Object.keys(this.events || {}).forEach((eventKey) => {
       const [eventType, selector] = eventKey.split("@");
       const callback = this.events[eventKey].bind(this);
 
-      this.$target.querySelectorAll(selector).forEach((el) => {
+      this.target.querySelectorAll(selector).forEach((el) => {
         el.addEventListener(eventType, callback);
       });
     });
@@ -53,8 +55,8 @@ class Component {
 
   /** 초기 렌더링 */
   initialRender() {
-    this.$target.innerHTML = this.template();
-    this.bindEvents();
+    this.target.innerHTML = this.template();
+    this.#bindEvents();
     this.componentDidMount();
   }
 }

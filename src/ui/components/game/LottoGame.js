@@ -6,20 +6,21 @@ import LottoList from "./LottoList.js";
 import WinningNumbersForm from "./WinningNumbersForm.js";
 import "./game.css";
 
-const TITLE = "🎱 내 번호 당첨 확인 🎱";
 class LottoGame extends Component {
+  static TITLE = "🎱 내 번호 당첨 확인 🎱";
+
   setup() {
     this.state = {
       price: 0,
       lottoBundle: [],
       winningNumbers: Array(Lotto.SIZE).fill(""),
       bonusNumber: "",
-      isModalOpen: false,
+      opened: false,
     };
   }
 
-  setIsModalOpen(openModal) {
-    this.setState({ isModalOpen: openModal });
+  setOpened(openModal) {
+    this.setState({ opened: openModal });
   }
 
   resetGame() {
@@ -29,7 +30,7 @@ class LottoGame extends Component {
   template() {
     return `
       <section id="lotto-game">
-        <h2 class="text-title">${TITLE}</h2>
+        <h2 class="text-title">${LottoGame.TITLE}</h2>
         <div id="lotto-form"></div>
         <div id="lotto-list"></div>
         <div id="winning-numbers-form"></div>
@@ -48,9 +49,9 @@ class LottoGame extends Component {
       this.renderWinningNumbersForm();
     }
 
-    if (changedKeys.includes("isModalOpen")) {
+    if (changedKeys.includes("opened")) {
       const modalRoot = document.querySelector("#modal-root");
-      if (this.state.isModalOpen) {
+      if (this.state.opened) {
         this.renderResultModal(modalRoot);
         return;
       }
@@ -72,7 +73,7 @@ class LottoGame extends Component {
 
   renderWinningNumbersForm() {
     new WinningNumbersForm(document.querySelector("#winning-numbers-form"), {
-      onModalOpen: () => this.setIsModalOpen(true),
+      onModalOpen: () => this.setOpened(true),
       setWinningNumbers: (winningNumbers) => this.setState({ winningNumbers }),
       setBonusNumber: (bonusNumber) => this.setState({ bonusNumber }),
     });
@@ -80,7 +81,7 @@ class LottoGame extends Component {
 
   renderResultModal(modalRoot) {
     new ResultModal(modalRoot, {
-      onClose: () => this.setState({ isModalOpen: false }),
+      onClose: () => this.setState({ opened: false }),
       onRestart: () => this.resetGame(),
       price: this.state.price,
       lottoBundle: this.state.lottoBundle,

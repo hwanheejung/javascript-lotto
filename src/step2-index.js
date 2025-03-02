@@ -5,6 +5,4 @@
 
 import App from "./ui/App.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  new App(document.querySelector("#app"));
-});
+new App(document.querySelector("#app"));

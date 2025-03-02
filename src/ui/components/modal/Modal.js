@@ -4,15 +4,15 @@ import "./modal.css";
 class Modal extends Component {
   setup() {
     this.events = {
-      "click@.modal": this.close,
-      "click@.modal__close-button": this.close,
+      "click@.modal": this.handleClose,
+      "click@.modal__close-button": this.handleClose,
       "click@.modal__content": (event) => {
         event.stopPropagation();
       },
     };
   }
 
-  close() {
+  handleClose() {
     this.props.onClose();
   }
 
