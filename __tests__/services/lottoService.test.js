@@ -1,4 +1,4 @@
-import lottoService from "../../src/app/lottoService.js";
+import lottoService from "../../src/services/lottoService.js";
 import { PRIZE } from "../../src/constants/prize.js";
 import LottoBundle from "../../src/domain/LottoBundle.js";
 import WinningLotto from "../../src/domain/WinningLotto.js";
@@ -49,7 +49,7 @@ describe("app/lottoService", () => {
     const { formattedResults, totalReward } = lottoService.evaluateResults(
       lottoBundle,
       winningNumbers,
-      bonusNumber,
+      bonusNumber
     );
 
     // then

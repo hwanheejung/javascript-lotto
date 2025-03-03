@@ -18,7 +18,6 @@ class Component {
   setup() {}
 
   componentDidMount() {}
-  componentWillUpdate() {}
   componentDidUpdate(changedKeys) {
     changedKeys.forEach((key) => {
       if (this.#stateToUIMap[key]) {
@@ -28,7 +27,6 @@ class Component {
   }
 
   setState(newState) {
-    this.componentWillUpdate();
     const prevState = { ...this.state };
     this.state = { ...this.state, ...newState };
 
@@ -45,7 +43,6 @@ class Component {
 
   /** 상태 변경 감시 */
   watchState(stateKey, callback) {
-    this.#stateToUIMap = this.#stateToUIMap || {};
     this.#stateToUIMap[stateKey] = callback;
   }
 
